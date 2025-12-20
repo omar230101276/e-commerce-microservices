@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  catalog-service:
+    build: ./services/catalog-service
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./services/catalog-service:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  cart-service:
+    build: ./services/cart-service
+    ports:
+      - "8001:8000"
+    volumes:
+      - ./services/cart-service:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  order-service:
+    build: ./services/order-service
+    ports:
+      - "8002:8000"
+    volumes:
+      - ./services/order-service:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  payment-service:
+    build: ./services/payment-service
+    ports:
+      - "8003:8000"
+    volumes:
+      - ./services/payment-service:/app
+    environment:
+      - PYTHONUNBUFFERED=1
+
+  order-dashboard:
+    build: ./dashboard/order-dashboard
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./dashboard/order-dashboard:/app
+      - /app/node_modules
+    environment:
+      - WDS_SOCKET_PORT=0
+    stdin_open: true
+    tty: true
